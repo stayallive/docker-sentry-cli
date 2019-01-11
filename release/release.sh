@@ -45,7 +45,11 @@ if [[ ! -z "${PLUGIN_SOURCEMAPS}" ]]; then
 
     for i in ${PLUGIN_SOURCEMAPS//,/ }
     do
-        sentry-cli releases files "$VERSION" upload-sourcemaps ${i} --url-prefix "${PLUGIN_SOURCEMAP_PREFIX}" --rewrite --strip-common-prefix
+        if [[ ! -z "$SOURCEMAP_NO_REFERENCE" && "$SOURCEMAP_NO_REFERENCE" == "true" ]]; then
+            sentry-cli releases files "$VERSION" upload-sourcemaps ${i} --url-prefix "${PLUGIN_SOURCEMAP_PREFIX}" --rewrite --strip-common-prefix --no-sourcemap-reference
+        else
+            sentry-cli releases files "$VERSION" upload-sourcemaps ${i} --url-prefix "${PLUGIN_SOURCEMAP_PREFIX}" --rewrite --strip-common-prefix
+        fi
     done
 fi
 

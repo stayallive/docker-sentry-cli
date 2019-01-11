@@ -39,6 +39,10 @@ steps:
       # default: empty
       sourcemap_prefix: ~/build
       
+      # (optionally) Sets the `--no-sourcemap-reference` flag when uploading sourcemaps
+      # default: false
+      sourcemap_no_reference: true
+      
       # (optionally) The environment this release is being deployed
       # default: empty
       deploy: production
