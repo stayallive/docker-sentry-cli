@@ -1,0 +1,37 @@
+kind: pipeline
+name: default
+
+steps:
+  - name: docker-build-release
+    image: plugins/docker
+    settings:
+      repo: stayallive/sentry
+      tags: deploy
+      context: deploy/
+      dockerfile: deploy/Dockerfile
+      username:
+        from_secret: docker_username
+      password:
+        from_secret: docker_password
+    when:
+      event:
+        - push
+      branch:
+        - master
+
+  - name: docker-build-release
+    image: plugins/docker
+    settings:
+      repo: stayallive/sentry
+      tags: release
+      context: release/
+      dockerfile: release/Dockerfile
+      username:
+        from_secret: docker_username
+      password:
+        from_secret: docker_password
+    when:
+      event:
+        - push
+      branch:
+        - master
