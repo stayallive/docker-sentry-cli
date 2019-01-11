@@ -2,7 +2,7 @@ kind: pipeline
 name: default
 
 steps:
-  - name: docker-build-release
+  - name: docker-build-deploy
     image: plugins/docker
     settings:
       repo: stayallive/sentry
