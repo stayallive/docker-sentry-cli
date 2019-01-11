@@ -31,6 +31,14 @@ steps:
       # default: auto
       commit: my-repo@${DRONE_COMMIT_BEFORE}...${DRONE_COMMIT_SHA}
       
+      # (optionally) Set paths to look for sourcemaps to upload
+      # default: empty
+      sourcemaps: [ public/build ]
+      
+      # (optionally, required with sourcemaps) Set the sourcemaps url prefix
+      # default: empty
+      sourcemap_prefix: ~/build
+      
       # (optionally) The environment this release is being deployed
       # default: empty
       deploy: production

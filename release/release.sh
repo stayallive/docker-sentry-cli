@@ -37,6 +37,18 @@ sentry-cli releases new "$VERSION" --finalize
 
 sentry-cli releases set-commits "$VERSION" --auto
 
+if [[ ! -z "${PLUGIN_SOURCEMAPS}" ]]; then
+    if [[ -z "${PLUGIN_SOURCEMAP_PREFIX}" ]]; then
+        echo "Missing the sourcemap prefix!"
+        exit 1
+    fi
+
+    for i in ${PLUGIN_SOURCEMAPS//,/ }
+    do
+        sentry-cli releases files "$VERSION" upload-sourcemaps ${i} --url-prefix "${PLUGIN_SOURCEMAP_PREFIX}" --rewrite --strip-common-prefix
+    done
+fi
+
 if [[ ! -z "${PLUGIN_DEPLOY}" ]]; then
     sentry-cli releases deploys "$VERSION" new -e "$PLUGIN_DEPLOY"
 fi
